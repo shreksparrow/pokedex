@@ -6,17 +6,25 @@ import './App.css';
 const App = () => {
   const [pokemonList, setPokemonList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPokemon = async () => {
-      let allPokemon = [];
-      for (let i = 1; i <= 898; i++) { // Up to Generation 8
-        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`);
-        const speciesRes = await axios.get(res.data.species.url);
-        const generation = speciesRes.data.generation.name;
-        allPokemon.push({ ...res.data, generation });
+      try {
+        let allPokemon = [];
+        for (let i = 1; i <= 151; i++) { // Fetching only first 151 for performance
+          const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`);
+          const speciesRes = await axios.get(res.data.species.url);
+          const generation = speciesRes.data.generation.name;
+          allPokemon.push({ ...res.data, generation });
+        }
+        setPokemonList(allPokemon);
+        setLoading(false);
+      } catch (err) {
+        setError(err);
+        setLoading(false);
       }
-      setPokemonList(allPokemon);
     };
 
     fetchPokemon();
@@ -32,6 +40,9 @@ const App = () => {
 
   const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading Pokémon: {error.message}</div>;
+
   return (
     <div className="App">
       <h1>Pokédex</h1>
@@ -46,7 +57,7 @@ const App = () => {
           <div key={pokemon.id} className="pokemon-card">
             <img src={pokemon.sprites.front_default} alt={pokemon.name} />
             <p>{capitalize(pokemon.name)}</p>
-            <p>Types: {pokemon.types.map(typeInfo => typeInfo.type.name).join(', ')}</p>
+            <p>Types: {pokemon.types.map(typeInfo => capitalize(typeInfo.type.name)).join(', ')}</p>
             <p>Generation: {pokemon.generation.replace('generation-', '').toUpperCase()}</p>
             <p>DEC ID: {pokemon.id}</p>
             <p>HEX ID: {pokemon.id.toString(16).toUpperCase()}</p>
