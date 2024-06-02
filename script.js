@@ -15,11 +15,13 @@ types.forEach(type => {
     typeFilter.appendChild(option);
 });
 
+let pokemon = [];
+
 const fetchPokemon = async () => {
     const promises = [];
     for (let i = 1; i <= 1010; i++) { // Adjust the number based on the latest number of Pokémon
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-        promises.push(fetch(url).then((res) => res.json()));
+        promises.push(fetch(url).then((res) => res.json()).catch(err => console.error(`Failed to fetch data for Pokémon ${i}:`, err)));
     }
     const results = await Promise.all(promises);
     pokemon = results.map((data) => ({
@@ -68,7 +70,6 @@ const filterPokemon = () => {
     displayPokemon(filteredPokemon);
 };
 
-let pokemon = [];
 fetchPokemon().then(() => {
     searchInput.addEventListener('input', filterPokemon);
     typeFilter.addEventListener('change', filterPokemon);
