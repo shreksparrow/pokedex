@@ -1,6 +1,7 @@
 const pokedex = document.getElementById('pokedex');
 const searchInput = document.getElementById('search');
 const typeFilter = document.getElementById('type-filter');
+const sortOptions = document.getElementById('sort-options');
 
 const types = [
     "normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", 
@@ -31,7 +32,7 @@ const fetchPokemon = async () => {
         sprite: data.sprites.front_default,
         hex: data.id.toString(16).padStart(3, '0'),
     }));
-    displayPokemon(pokemon);
+    filterAndDisplayPokemon();
 };
 
 const displayPokemon = (pokemonList) => {
@@ -50,27 +51,37 @@ const displayPokemon = (pokemonList) => {
     pokedex.innerHTML = pokemonHTMLString;
 };
 
-const filterPokemon = () => {
+const filterAndDisplayPokemon = () => {
     const searchTerm = searchInput.value.toLowerCase();
-    const selectedType = typeFilter.value;
-    
-    const filteredPokemon = pokemon.filter((pokeman) => {
+    const selectedTypes = Array.from(typeFilter.selectedOptions).map(option => option.value);
+    const sortOption = sortOptions.value;
+
+    let filteredPokemon = pokemon.filter((pokeman) => {
         const matchesSearchTerm = 
             pokeman.name.toLowerCase().includes(searchTerm) || 
             pokeman.id.toString().includes(searchTerm) || 
             pokeman.hex.includes(searchTerm);
         
         const matchesType = 
-            selectedType === 'all' || 
-            pokeman.types.includes(selectedType);
+            selectedTypes.length === 0 || 
+            selectedTypes.some(type => pokeman.types.includes(type));
         
         return matchesSearchTerm && matchesType;
     });
-    
+
+    // Sorting
+    filteredPokemon = filteredPokemon.sort((a, b) => {
+        if (sortOption === 'id-asc') return a.id - b.id;
+        if (sortOption === 'id-desc') return b.id - a.id;
+        if (sortOption === 'name-asc') return a.name.localeCompare(b.name);
+        if (sortOption === 'name-desc') return b.name.localeCompare(a.name);
+    });
+
     displayPokemon(filteredPokemon);
 };
 
 fetchPokemon().then(() => {
-    searchInput.addEventListener('input', filterPokemon);
-    typeFilter.addEventListener('change', filterPokemon);
+    searchInput.addEventListener('input', filterAndDisplayPokemon);
+    typeFilter.addEventListener('change', filterAndDisplayPokemon);
+    sortOptions.addEventListener('change', filterAndDisplayPokemon);
 });
