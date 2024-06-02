@@ -1,8 +1,7 @@
 const pokedex = document.getElementById('pokedex');
 const searchInput = document.getElementById('search');
-const typeFilterContainer = document.getElementById('type-filter');
+const typeFilter = document.getElementById('type-filter');
 const sortOptions = document.getElementById('sort-options');
-const applyFiltersButton = document.getElementById('apply-filters');
 
 const types = [
     "normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison",
@@ -11,9 +10,10 @@ const types = [
 
 // Populate type filter options
 types.forEach(type => {
-    const label = document.createElement('label');
-    label.innerHTML = `<input type="checkbox" value="${type}"> ${type.charAt(0).toUpperCase() + type.slice(1)}`;
-    typeFilterContainer.appendChild(label);
+    const option = document.createElement('option');
+    option.value = type;
+    option.innerText = type.charAt(0).toUpperCase() + type.slice(1);
+    typeFilter.appendChild(option);
 });
 
 let pokemon = [];
@@ -53,7 +53,7 @@ const displayPokemon = (pokemonList) => {
 
 const filterAndDisplayPokemon = () => {
     const searchTerm = searchInput.value.toLowerCase();
-    const selectedTypes = Array.from(typeFilterContainer.querySelectorAll('input:checked')).map(checkbox => checkbox.value);
+    const selectedTypes = Array.from(typeFilter.selectedOptions).map(option => option.value);
     const sortOption = sortOptions.value;
 
     let filteredPokemon = pokemon.filter((pokeman) => {
@@ -64,7 +64,7 @@ const filterAndDisplayPokemon = () => {
         
         const matchesType = 
             selectedTypes.length === 0 || 
-            selectedTypes.some(type => pokeman.types.includes(type));
+            selectedTypes.every(type => pokeman.types.includes(type));
         
         return matchesSearchTerm && matchesType;
     });
@@ -83,5 +83,5 @@ const filterAndDisplayPokemon = () => {
 fetchPokemon();
 
 searchInput.addEventListener('input', filterAndDisplayPokemon);
-applyFiltersButton.addEventListener('click', filterAndDisplayPokemon);
+typeFilter.addEventListener('change', filterAndDisplayPokemon);
 sortOptions.addEventListener('change', filterAndDisplayPokemon);
