@@ -12,10 +12,44 @@ h1 {
     margin: 20px 0;
 }
 
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#search {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 1em;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.filter-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#type-filter, #sort-options {
+    margin: 5px;
+    padding: 10px;
+    font-size: 1em;
+    width: 45%;
+    max-width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 #pokedex {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 10px;
 }
 
 .pokemon {
@@ -27,6 +61,11 @@ h1 {
     width: 150px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.pokemon:hover {
+    transform: scale(1.05);
 }
 
 .pokemon img {
@@ -52,6 +91,11 @@ h1 {
     font-size: 0.8em;
 }
 
+.pokemon .id {
+    font-size: 0.8em;
+    color: #777;
+}
+
 @media (max-width: 600px) {
     .pokemon {
         width: 100px;
@@ -64,5 +108,9 @@ h1 {
 
     .pokemon .name {
         font-size: 1em;
+    }
+
+    #search, #type-filter, #sort-options {
+        width: 90%;
     }
 }
