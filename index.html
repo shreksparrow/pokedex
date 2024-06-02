@@ -8,11 +8,20 @@
 </head>
 <body>
     <h1>Pokedex</h1>
-    <input type="text" id="search" placeholder="Search for a Pokémon by name, DEC or HEX...">
-    <select id="type-filter">
-        <option value="all">All Types</option>
-        <!-- Add all Pokémon types here -->
-    </select>
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search for a Pokémon by name, DEC or HEX...">
+        <div class="filter-options">
+            <select id="type-filter" multiple>
+                <!-- Type options will be added here by JavaScript -->
+            </select>
+            <select id="sort-options">
+                <option value="id-asc">ID (Ascending)</option>
+                <option value="id-desc">ID (Descending)</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+            </select>
+        </div>
+    </div>
     <div id="pokedex"></div>
     <script src="script.js"></script>
 </body>
