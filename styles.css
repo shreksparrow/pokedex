@@ -12,6 +12,16 @@ h1 {
     margin: 20px 0;
 }
 
+#search {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 1em;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 #pokedex {
     display: flex;
     flex-wrap: wrap;
@@ -50,6 +60,11 @@ h1 {
     padding: 3px 5px;
     margin: 0 2px;
     font-size: 0.8em;
+}
+
+.pokemon .id {
+    font-size: 0.8em;
+    color: #777;
 }
 
 @media (max-width: 600px) {
