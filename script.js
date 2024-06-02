@@ -4,7 +4,7 @@ const typeFilter = document.getElementById('type-filter');
 const sortOptions = document.getElementById('sort-options');
 
 const types = [
-    "normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", 
+    "normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison",
     "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"
 ];
 
@@ -64,7 +64,7 @@ const filterAndDisplayPokemon = () => {
         
         const matchesType = 
             selectedTypes.length === 0 || 
-            selectedTypes.some(type => pokeman.types.includes(type));
+            selectedTypes.every(type => pokeman.types.includes(type));
         
         return matchesSearchTerm && matchesType;
     });
@@ -80,8 +80,8 @@ const filterAndDisplayPokemon = () => {
     displayPokemon(filteredPokemon);
 };
 
-fetchPokemon().then(() => {
-    searchInput.addEventListener('input', filterAndDisplayPokemon);
-    typeFilter.addEventListener('change', filterAndDisplayPokemon);
-    sortOptions.addEventListener('change', filterAndDisplayPokemon);
-});
+fetchPokemon();
+
+searchInput.addEventListener('input', filterAndDisplayPokemon);
+typeFilter.addEventListener('change', filterAndDisplayPokemon);
+sortOptions.addEventListener('change', filterAndDisplayPokemon);
