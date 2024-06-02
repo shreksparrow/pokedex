@@ -6,10 +6,12 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: #f2f2f2;
+    color: #333;
 }
 
 h1 {
     margin: 20px 0;
+    font-size: 2em;
 }
 
 .search-container {
@@ -17,6 +19,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 #search {
@@ -81,6 +84,7 @@ h1 {
 .pokemon .types {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .pokemon .type {
@@ -98,19 +102,24 @@ h1 {
 
 @media (max-width: 600px) {
     .pokemon {
-        width: 100px;
+        width: 80px; /* Reduce width to show more Pokémon per row */
+        margin: 5px; /* Reduce margin */
     }
 
     .pokemon img {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
     }
 
     .pokemon .name {
-        font-size: 1em;
+        font-size: 0.8em;
     }
 
     #search, #type-filter, #sort-options {
-        width: 90%;
+        width: 95%; /* Reduce padding on sides */
+    }
+
+    #pokedex {
+        padding: 5px; /* Reduce padding on sides */
     }
 }
