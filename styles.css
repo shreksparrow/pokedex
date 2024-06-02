@@ -38,34 +38,7 @@ h1 {
     flex-wrap: wrap;
 }
 
-#type-filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 5px;
-    padding: 10px;
-    font-size: 1em;
-    width: 45%;
-    max-width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-#type-filter label {
-    display: block;
-    margin: 5px;
-}
-
-#apply-filters {
-    margin: 5px;
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#sort-options {
+#type-filter, #sort-options {
     margin: 5px;
     padding: 10px;
     font-size: 1em;
@@ -129,28 +102,24 @@ h1 {
 
 @media (max-width: 600px) {
     .pokemon {
-        width: 100px;
+        width: 80px; /* Reduce width to show more Pokémon per row */
+        margin: 5px; /* Reduce margin */
     }
 
     .pokemon img {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
     }
 
     .pokemon .name {
-        font-size: 1em;
+        font-size: 0.8em;
     }
 
     #search, #type-filter, #sort-options {
-        width: 90%;
+        width: 95%; /* Reduce padding on sides */
     }
 
     #pokedex {
-        padding: 5px;
-    }
-
-    .pokemon {
-        margin: 5px;
-        padding: 5px;
+        padding: 5px; /* Reduce padding on sides */
     }
 }
