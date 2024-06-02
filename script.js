@@ -1,8 +1,9 @@
 const pokedex = document.getElementById('pokedex');
+const searchInput = document.getElementById('search');
 
 const fetchPokemon = () => {
     const promises = [];
-    for (let i = 1; i <= 721; i++) {
+    for (let i = 1; i <= 1010; i++) { // Adjust the number based on the latest number of Pokémon
         const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         promises.push(fetch(url).then((res) => res.json()));
     }
@@ -34,4 +35,15 @@ const displayPokemon = (pokemon) => {
     pokedex.innerHTML = pokemonHTMLString;
 };
 
-fetchPokemon();
+const filterPokemon = (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+    const filteredPokemon = pokemon.filter((pokeman) =>
+        pokeman.name.toLowerCase().includes(searchTerm)
+    );
+    displayPokemon(filteredPokemon);
+};
+
+let pokemon = [];
+fetchPokemon().then(() => {
+    searchInput.addEventListener('input', filterPokemon);
+});
